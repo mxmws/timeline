@@ -7,50 +7,45 @@ import { encodeTimelineData, decodeTimelineData, generateShareableUrl } from './
 
 const LifeTimeline = () => {
 
-  const initializeEventsWithRows = (events) => {
+  const initializeEventsWithRows = (events, existingEvents = []) => {
     const eventsByCategory = {};
-    const processedEvents = [];
-  
-    // Group events by category
-    events.forEach(event => {
+    const processedEvents = [...existingEvents];
+    const newEvents = events.filter(event => !existingEvents.find(e => e.id === event.id));
+    
+    // Process new events
+    newEvents.forEach(event => {
       if (!eventsByCategory[event.category]) {
         eventsByCategory[event.category] = [];
       }
-      eventsByCategory[event.category].push(event);
-    });
-  
-    // Process each category's events
-    Object.keys(eventsByCategory).forEach(category => {
-      const categoryEvents = eventsByCategory[category];
-      categoryEvents.sort((a, b) => a.start - b.start);
-  
-      categoryEvents.forEach(event => {
-        // Find first available row
+      
+      // Use existing row if provided, otherwise find first available row
+      if (event.row !== undefined) {
+        processedEvents.push(event);
+      } else {
         let row = 0;
         let foundRow = false;
-  
+        
         while (!foundRow) {
           const hasOverlap = processedEvents
-            .filter(e => e.category === event.category && e.row === row)
-            .some(existingEvent => checkOverlap(event, existingEvent));
-  
+            .filter(e => e.category === event.category)
+            .some(existingEvent => existingEvent.row === row && checkOverlap(event, existingEvent));
+          
           if (!hasOverlap) {
             foundRow = true;
           } else {
             row++;
           }
         }
-  
+        
         processedEvents.push({
           ...event,
           row
         });
-      });
+      }
     });
   
     return processedEvents;
   };
-
   const [events, setEvents] = useState(() => initializeEventsWithRows(EXAMPLE_EVENTS));
   const [categories, setCategories] = useState(CATEGORIES);
   const [startYear, setStartYear] = useState(new Date().getFullYear() - 7);
@@ -168,31 +163,25 @@ const LifeTimeline = () => {
 
 
   const addEvent = useCallback((category) => {
-    const { name, hasDuration } = newEvent;
-    if (!name) {
+    if (!newEvent.name) {
       alert('Please enter an event name');
       return;
     }
   
-    const categoryObj = categories.find((cat) => cat.name === category);
     const startMonth = Math.floor((timelineRange.start + timelineRange.end) / 2);
-    
     const newEventObj = {
-      name,
+      name: newEvent.name,
       start: startMonth,
       category,
       id: Date.now(),
-      hasDuration,
-      duration: hasDuration ? Math.max(1, Math.floor((timelineRange.end - timelineRange.start) / 6)) : 1
+      hasDuration: newEvent.hasDuration,
+      duration: newEvent.hasDuration ? Math.max(1, Math.floor((timelineRange.end - timelineRange.start) / 6)) : 1
     };
   
-    setEvents(prevEvents => {
-      return initializeEventsWithRows([...prevEvents, newEventObj]);
-    });
-  
+    setEvents(prevEvents => initializeEventsWithRows([newEventObj], prevEvents));
     setNewEvent({ name: '', category: '', hasDuration: true });
     setShowInput(null);
-  }, [newEvent, timelineRange, categories]);
+  }, [newEvent, timelineRange]);
   
 
   const deleteEvent = useCallback((eventId) => {

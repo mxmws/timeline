@@ -110,7 +110,7 @@ export const EXAMPLE_EVENTS = [
     hasDuration: true
   },
   {
-    id: 12,
+    id: 13,
     name: 'Summer Internship',
     category: 'Work',
     start: 2020 * 12 + 5,
