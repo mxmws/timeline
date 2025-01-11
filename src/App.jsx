@@ -1,8 +1,10 @@
+import TouchDeviceWarning from './TouchDeviceWarning';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { CATEGORIES, EXAMPLE_EVENTS, PLEASANT_COLORS } from './constants';
 import { useTimelineInteractions } from './hooks';
 import { formatDate, getTextWidth, checkOverlap } from './utils';
 import { encodeTimelineData, decodeTimelineData, generateShareableUrl } from './utils';
+
 
 
 const LifeTimeline = () => {
@@ -550,6 +552,7 @@ const LifeTimeline = () => {
       className="flex justify-center items-center min-h-screen p-4"
       style={{ width: '100vw' }}
     >
+      <TouchDeviceWarning />
       <a
         className="github-fork-ribbon right-top fixed"
         href="https://github.com/mxmws/timeline"
