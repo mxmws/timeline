@@ -550,6 +550,14 @@ const LifeTimeline = () => {
       className="flex justify-center items-center min-h-screen p-4"
       style={{ width: '100vw' }}
     >
+      <a
+        className="github-fork-ribbon right-top fixed"
+        href="https://github.com/mxmws/timeline"
+        data-ribbon="Fork me on GitHub"
+        title="Fork me on GitHub"
+      >
+        Fork me on GitHub
+      </a>
       <div className="w-full max-w-[1600px] mx-auto">
 
 
