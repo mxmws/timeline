@@ -53,6 +53,16 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## To-Do
+
+- [ ] Write comprehensive unit tests
+- [ ] Add mobile support
+- [ ] Add functionality to change category color
+- [ ] Add functionality to change category order
+- [ ] Add functionality to change event category
+- [ ] Add functionality to change event name
+- [ ] Add functionality to change category name
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
