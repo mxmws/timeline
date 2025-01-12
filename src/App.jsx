@@ -676,8 +676,17 @@ const LifeTimeline = () => {
                 Share Timeline
               </button>
               <button
-                className="text-sm text-white bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded transition-colors"
+                className="text-sm text-white px-3 py-1 rounded transition-colors"
                 onClick={() => setShowDeleteConfirmation(true)}
+                style={{
+                  backgroundColor: '#D14836',
+                  transition: 'background-color 0.2s',
+                  ':hover': {
+                    backgroundColor: '#B73C2D' // Darker shade for hover
+                  }
+                }}
+                onMouseOver={e => e.currentTarget.style.backgroundColor = '#B73C2D'}
+                onMouseOut={e => e.currentTarget.style.backgroundColor = '#D14836'}
               >
                 Delete All Events
               </button>
