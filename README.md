@@ -2,6 +2,8 @@
 
 A visual life journaling application that helps you reflect on your experiences through an interactive timeline interface. Unlike traditional diary apps, Timeline provides a dynamic visualization of your life events, making it easier to see patterns and connections across time.
 
+![Timeline Screenshot](timeline_screenshot.png)
+
 ## Try Timeline
 
 Try it out here: [https://mxmws.github.io/timeline](https://mxmws.github.io/timeline) or follow the instructions below to run it locally.
